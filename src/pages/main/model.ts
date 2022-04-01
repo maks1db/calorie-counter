@@ -62,6 +62,10 @@ const setButtonDisabledFx = createEffect((isDisabled: boolean) => {
     }
 });
 
+const focusInputFoodFx = createEffect(() => {
+    foodInput.focus();
+})
+
 const $count = $items.map((state) =>
     state.reduce((acc, item) => acc + item.calories, 0)
 );
@@ -71,15 +75,14 @@ const $pageStore = combine([$food, $calories]);
 sample({
     clock: setItemFromUi,
     source: $pageStore,
+    filter: ([name, calories]) => name !== '' && calories > 0,
     fn: ([name, calories]) => ({
         name,
         calories,
         date: new Date().valueOf(),
     }),
-    target: addItem,
+    target: [addItem, focusInputFoodFx],
 });
-
-$pageStore.watch(console.log);
 
 sample({
     clock: $pageStore,
@@ -106,6 +109,12 @@ foodInput.addEventListener("keyup", (e) => {
 button.addEventListener("click", () => {
     setItemFromUi();
 });
+
+document.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+        setItemFromUi();
+    }
+})
 
 $food.watch((state) => {
     foodInput.value = state
