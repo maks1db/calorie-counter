@@ -10,19 +10,29 @@
 </head>
 
 <body class="h-full bg-gray-600 flex items-center  m-0 flex-col p-4">
-    <div class="mb-4">
-        <input class="p-3 border-[1px] border-slate-500 rounded-sm w-80" name="food" placeholder="Что я съел..." />
-        <input class="p-3 border-[1px] border-slate-500 rounded-sm w-40" name="calories" type="number"
-            placeholder="Калории" />
+    <div class="mb-4 flex">
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2 text-gray-200" for="food">
+                Еда:
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="food" type="text" placeholder="Что я съел...">
+        </div>
+        <div class="w-24 ml-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2 text-gray-200" for="calories">
+                Калории:
+            </label>
+            <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="calories" type="number" placeholder="Калории">
+        </div>
     </div>
     <button
         class="w-80 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline">Добавить</button>
     <div class="font-bold text-gray-200 my-6" id="title">Съедено сегодня:</div>
-
     <ul class="text-white">
-        
     </ul>
-
 </body>
 
 </html>

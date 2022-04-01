@@ -1,5 +1,5 @@
-export const foodInput = document.querySelector("[name=food]") as HTMLInputElement;
-export const caloriesInput = document.querySelector("[name=calories]") as HTMLInputElement;
+export const foodInput = document.querySelector("#food") as HTMLInputElement;
+export const caloriesInput = document.querySelector("#calories") as HTMLInputElement;
 export const button = document.querySelector('button');
 export const title = document.querySelector('#title');
 export const list = document.querySelector('ul');

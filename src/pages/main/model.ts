@@ -17,7 +17,6 @@ import {
 import { Item } from "../../shared/types";
 import { parseDateHours } from "../../shared/lib";
 
-
 const initPage = createEvent();
 const addItem = createEvent<Item>();
 
@@ -34,10 +33,9 @@ const $calories = createStore(0)
 const setItemFromUi = createEvent();
 
 export const setItems = createEvent<Item[]>();
-export const $items = createStore<Item[]>([]).on(addItem, (state, payload) => [
-    ...state,
-    payload,
-]).on(setItems, (_, payload) => payload);
+export const $items = createStore<Item[]>([])
+    .on(addItem, (state, payload) => [...state, payload])
+    .on(setItems, (_, payload) => payload);
 
 $items.watch(
     (state) =>
@@ -52,7 +50,6 @@ $items.watch(
 );
 
 const setButtonDisabledFx = createEffect((isDisabled: boolean) => {
-
     button.disabled = isDisabled;
 
     if (isDisabled) {
@@ -64,7 +61,7 @@ const setButtonDisabledFx = createEffect((isDisabled: boolean) => {
 
 const focusInputFoodFx = createEffect(() => {
     foodInput.focus();
-})
+});
 
 const $count = $items.map((state) =>
     state.reduce((acc, item) => acc + item.calories, 0)
@@ -75,7 +72,7 @@ const $pageStore = combine([$food, $calories]);
 sample({
     clock: setItemFromUi,
     source: $pageStore,
-    filter: ([name, calories]) => name !== '' && calories > 0,
+    filter: ([name, calories]) => name !== "" && calories > 0,
     fn: ([name, calories]) => ({
         name,
         calories,
@@ -93,8 +90,8 @@ sample({
 sample({
     clock: initPage,
     fn: () => true,
-    target: setButtonDisabledFx
-})
+    target: [setButtonDisabledFx, focusInputFoodFx],
+});
 
 caloriesInput.addEventListener("keyup", (e) => {
     const value = (e.target as HTMLInputElement).value;
@@ -110,14 +107,14 @@ button.addEventListener("click", () => {
     setItemFromUi();
 });
 
-document.addEventListener('keyup', e => {
-    if (e.key === 'Enter') {
+document.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") {
         setItemFromUi();
     }
-})
+});
 
 $food.watch((state) => {
-    foodInput.value = state
+    foodInput.value = state;
 });
 $calories.watch((state) => (caloriesInput.value = state.toString()));
 $count.watch(
